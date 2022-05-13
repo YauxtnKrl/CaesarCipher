@@ -5,28 +5,44 @@ import (
 	"unicode"
 )
 
-func MovingShift(s string, shift int) []string {
+func encryptOrDecrypt(s string, shift int, encrypt bool) string {
 
-	encrypted := []string{}
+	result := ""
 
 	for _, v := range s {
 
+		var shiftedRune rune
+
+		if encrypt {
+			shiftedRune = v + rune(shift)
+		} else {
+			shiftedRune = v - rune(shift)
+		}
+
 		if unicode.IsLower(v) {
-			if unicode.IsLower(v + rune(shift)) {
-				encrypted = append(encrypted, string(v+rune(shift)))
+			if unicode.IsLower(shiftedRune) {
+				result += string(shiftedRune)
 			} else {
-				encrypted = append(encrypted, string(v+rune(shift-26)))
+				if encrypt {
+					result += string(shiftedRune - 26)
+				} else {
+					result += string(shiftedRune + 26)
+				}
 			}
 
 		} else if unicode.IsUpper(v) {
-			if unicode.IsUpper(v + rune(shift)) {
-				encrypted = append(encrypted, string(v+rune(shift)))
+			if unicode.IsUpper(shiftedRune) {
+				result += string(shiftedRune)
 			} else {
-				encrypted = append(encrypted, string(v+rune(shift-26)))
+				if encrypt {
+					result += string(shiftedRune - 26)
+				} else {
+					result += string(shiftedRune + 26)
+				}
 			}
 
 		} else {
-			encrypted = append(encrypted, string(v))
+			result += string(v)
 		}
 		if shift <= 25 {
 			shift++
@@ -34,10 +50,9 @@ func MovingShift(s string, shift int) []string {
 			shift = 1
 		}
 	}
-
-	//return array of 5 coded strings
-	return encrypted
+	return result
 }
+
 func main() {
 
 	inputString := os.Args
