@@ -38,7 +38,17 @@ func MovingShift(s string, shift int) []string {
 	//return array of 5 coded strings
 	return encrypted
 }
-
-
 func main() {
+
+	inputString := os.Args
+
+	shiftDirecton := flag.Bool("d", false, "used to decrypt the passed string")
+	flag.Parse()
+
+	if *shiftDirecton {
+		fmt.Println(encryptOrDecrypt(inputString[2], 1, false))
+	} else {
+		fmt.Println(encryptOrDecrypt(inputString[1], 1, true))
+	}
+
 }
