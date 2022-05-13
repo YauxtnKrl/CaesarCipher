@@ -7,49 +7,49 @@ import (
 	"unicode"
 )
 
-func encryptOrDecrypt(s string, shift int, encrypt bool) string {
+func encryptOrDecrypt(cipherString string, initialShift int, encrypt bool) string {
 
 	result := ""
 
-	for _, v := range s {
+	for _, v := range cipherString {
 
-		var shiftedRune rune
+		var initialShiftedRune rune
 
 		if encrypt {
-			shiftedRune = v + rune(shift)
+			initialShiftedRune = v + rune(initialShift)
 		} else {
-			shiftedRune = v - rune(shift)
+			initialShiftedRune = v - rune(initialShift)
 		}
 
 		if unicode.IsLower(v) {
-			if unicode.IsLower(shiftedRune) {
-				result += string(shiftedRune)
+			if unicode.IsLower(initialShiftedRune) {
+				result += string(initialShiftedRune)
 			} else {
 				if encrypt {
-					result += string(shiftedRune - 26)
+					result += string(initialShiftedRune - 26)
 				} else {
-					result += string(shiftedRune + 26)
+					result += string(initialShiftedRune + 26)
 				}
 			}
 
 		} else if unicode.IsUpper(v) {
-			if unicode.IsUpper(shiftedRune) {
-				result += string(shiftedRune)
+			if unicode.IsUpper(initialShiftedRune) {
+				result += string(initialShiftedRune)
 			} else {
 				if encrypt {
-					result += string(shiftedRune - 26)
+					result += string(initialShiftedRune - 26)
 				} else {
-					result += string(shiftedRune + 26)
+					result += string(initialShiftedRune + 26)
 				}
 			}
 
 		} else {
 			result += string(v)
 		}
-		if shift <= 25 {
-			shift++
+		if initialShift <= 25 {
+			initialShift++
 		} else {
-			shift = 1
+			initialShift = 1
 		}
 	}
 	return result
@@ -59,13 +59,13 @@ func main() {
 
 	inputString := os.Args
 
-	shiftDirecton := flag.Bool("d", false, "used to decrypt the passed string")
+	initialShiftDirecton := flag.Bool("d", false, "Flag for decryption of the passed string")
+	initialinitialShiftValue := flag.Int("s", 1, "Initial shift value")
 	flag.Parse()
 
-	if *shiftDirecton {
-		fmt.Println(encryptOrDecrypt(inputString[2], 1, false))
+	if *initialShiftDirecton {
+		fmt.Println(encryptOrDecrypt(inputString[3], *initialinitialShiftValue, false))
 	} else {
-		fmt.Println(encryptOrDecrypt(inputString[1], 1, true))
+		fmt.Println(encryptOrDecrypt(inputString[2], *initialinitialShiftValue, true))
 	}
-
 }
