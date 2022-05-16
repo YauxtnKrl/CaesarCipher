@@ -9,6 +9,17 @@ import (
 
 func encryptOrDecrypt(cipherString string, initialShift int, encrypt bool) string {
 
+	if initialShift > 25 {
+		initialShift = initialShift % 26
+
+	}
+
+	if initialShift <= 25 {
+		initialShift++
+	} else {
+		initialShift = 1
+	}
+
 	result := ""
 
 	for _, v := range cipherString {
@@ -46,11 +57,6 @@ func encryptOrDecrypt(cipherString string, initialShift int, encrypt bool) strin
 		} else {
 			result += string(v)
 		}
-		if initialShift <= 25 {
-			initialShift++
-		} else {
-			initialShift = 1
-		}
 	}
 	return result
 }
@@ -64,8 +70,8 @@ func main() {
 	flag.Parse()
 
 	if *initialShiftDirecton {
-		fmt.Println(encryptOrDecrypt(inputString[3], *initialinitialShiftValue, false))
+		fmt.Println(encryptOrDecrypt(inputString[len(inputString)-1], *initialinitialShiftValue, false))
 	} else {
-		fmt.Println(encryptOrDecrypt(inputString[2], *initialinitialShiftValue, true))
+		fmt.Println(encryptOrDecrypt(inputString[len(inputString)-1], *initialinitialShiftValue, true))
 	}
 }
