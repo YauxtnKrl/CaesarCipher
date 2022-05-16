@@ -4,12 +4,12 @@ Golang CLI tool for encrytping and decrypting strings using the [Caesar Cipher](
 
 ## Usage
 
-`./ceasarCipher "hello there"`
+`./caesarCipher "hello there"`
 
 `jgnnq vjgtg` 
 
 -d flag to decrypt the passed string
-example: `./ceasarCipher -d "wtaad iwtgt"`
+example: `./caesarCipher -d "wtaad iwtgt"`
 
 -s flag for shift value, default is 1.
-example: `./ceasarCipher -s=14 "hello there"`
+example: `./caesarCipher -s=14 "hello there"`
